@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambassador Program | TechUrban Ltd</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; line-height: 1.6; }
+        .hero { background: #2c3e50; color: white; padding: 60px 20px; text-align: center; }
+        .form-container { max-width: 600px; margin: -50px auto 50px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .submit-btn { width: 100%; background: #3498db; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>Join the TechUrban Team</h1>
+    <p>Earn commissions and build your resume as a Campus Ambassador.</p>
+</div>
+
+<div class="form-container">
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <label>Full Name</label>
+        <input type="text" name="name" required>
+
+        <label>Department & Level</label>
+        <input type="text" name="academic_info" placeholder="e.g. Engineering, 300L" required>
+
+        <label>WhatsApp Number</label>
+        <input type="tel" name="phone" required>
+
+        <label>Why do you want to be a TechUrban Ambassador?</label>
+        <textarea name="motivation" rows="4" placeholder="Tell us about your influence on campus..."></textarea>
+
+        <label>Estimated number of students you can reach weekly?</label>
+        <select name="reach">
+            <option value="1-50">1 - 50</option>
+            <option value="50-200">50 - 200</option>
+            <option value="200+">200+</option>
+        </select>
+
+        <input type="hidden" name="_subject" value="New Ambassador Application!">
+        <button type="submit" class="submit-btn">Submit Application</button>
+    </form>
+</div>
+
+</body>
+</html>
