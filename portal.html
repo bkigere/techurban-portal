@@ -40,13 +40,16 @@
     function checkStats() {
         const code = document.getElementById('ambassadorCode').value;
         const loader = document.getElementById('loader');
-        const scriptUrl = https://script.google.com/macros/s/AKfycbzywTM63_aXwtjX4qcEmHqp0BTgpEtLWYDPtl1rDVSGv2KJ6aGbLkop93hOGh5t0Uri/exec; // PASTE YOUR URL HERE
+        
+        // FIX 1: Enclose the URL in quotation marks ""
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbzywTM63_aXwtjX4qcEmHqp0BTgpEtLWYDPtl1rDVSGv2KJ6aGbLkop93hOGh5t0Uri/exec"; 
 
         if(!code) return alert("Please enter your code");
         
         loader.style.display = "block";
 
-        fetch(`${scriptUrl}?code=${code}`)
+        // FIX 2: Added 'redirect: "follow"' for Google Script compatibility
+        fetch(`${scriptUrl}?code=${code}`, { redirect: "follow" })
         .then(res => res.json())
         .then(data => {
             if(data.status === "success") {
@@ -62,7 +65,11 @@
             }
             loader.style.display = "none";
         })
-        .catch(err => alert("Error connecting to database."));
+        .catch(err => {
+            console.error(err);
+            alert("Error connecting to database. Please check your internet.");
+            loader.style.display = "none";
+        });
     }
 </script>
 </body>
