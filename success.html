@@ -3,27 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmed | TechUrban Ltd</title>
+    <title>Order Logged | TechUrban HQ</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 450px; }
-        .icon { font-size: 60px; color: #27ae60; margin-bottom: 20px; }
-        h1 { color: #2c3e50; margin-bottom: 10px; }
-        p { color: #7f8c8d; line-height: 1.6; }
-        .back-btn { display: inline-block; margin-top: 25px; padding: 12px 25px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background 0.3s; }
-        .back-btn:hover { background: #2980b9; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; color: #2c3e50; }
+        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 450px; width: 90%; }
+        .icon { font-size: 50px; color: #27ae60; margin-bottom: 20px; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #25d366; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-left: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .btn-manual { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="icon">✔</div>
-    <h1>Order Received!</h1>
-    <p>Thank you for choosing <strong>TechUrban Ltd</strong>. We have received your request and our team is currently reviewing the details.</p>
-    <p>We will contact you shortly via the contact information provided to discuss the quote and timeline.</p>
-    
-    <a href="index.html" class="back-btn">Return to Home</a>
-</div>
+    <div class="card">
+        <div class="icon">✅</div>
+        <h1>Order Logged!</h1>
+        <p>Your request has been securely stored in the TechUrban HQ database.</p>
+        
+        <p style="background: #e8f5e9; padding: 10px; border-radius: 8px; font-size: 0.9rem;">
+            Connecting to WhatsApp for your quote... <span class="loader"></span>
+        </p>
+
+        <a href="https://wa.me/2348032677977?text=Hi%20TechUrban%20HQ,%20I%20just%20submitted%20my%20order%20online.%20Can%20we%20discuss%20the%20details?" class="btn-manual">
+            Click here if not redirected
+        </a>
+    </div>
+
+    <script>
+        // Wait 2.5 seconds so they can read the success message, then open WhatsApp
+        setTimeout(function() {
+            window.location.href = "https://wa.me/2348032677977?text=Hi%20TechUrban%20HQ,%20I%20just%20submitted%20my%20order%20online.%20Can%20we%20discuss%20the%20details?";
+        }, 2500);
+    </script>
 
 </body>
 </html>
