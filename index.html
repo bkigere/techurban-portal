@@ -37,6 +37,7 @@
 <body>
 
 <header>
+
     <div class="logo-container">
         <h1 class="logo-text">Tech<span>Urban</span> HQ<span class="status-dot"></span></h1>
         <div class="tagline">Campus Business Excellence</div>
@@ -61,6 +62,33 @@
     </div>
 </section>
 
+<section style="background: #eef2f5; padding: 50px 20px; text-align: center; border-radius: 25px; margin: 40px auto; max-width: 1000px; border: 1px solid #d1d9e0;">
+    
+    <div style="background: #27ae60; color: white; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;">
+        Student Special 🎁
+    </div>
+
+    <h2 style="color: #2c3e50; font-size: 2rem; margin-bottom: 10px; font-weight: 800;">Get Paid to Study 🎓</h2>
+    
+    <p style="color: #5d6d7e; max-width: 500px; margin: 0 auto 30px; font-size: 1.05rem;">
+        Refer a coursemate for printing or editing: <strong>They get 10% off</strong>, and <strong>you earn 10% cash.</strong> 
+    </p>
+
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="ambassador.html" 
+           style="background: #2c3e50; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+           Become an Ambassador
+        </a>
+
+        <a href="https://wa.me/2348032677977?text=I%20have%20a%20referral%20for%20TechUrban%20HQ!" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           style="background: #27ae60; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+           Claim My 10%
+        </a>
+    </div>
+</section>
+
 <section id="order-section">
     <h2 style="text-align: center; color: #2c3e50;">Place an Order</h2>
     <form id="techUrbanForm" action="https://formspree.io/f/mdakrvvv" method="POST">
@@ -82,13 +110,27 @@
             <input type="checkbox" id="termsCheck" required style="width: auto; margin-right: 10px;">
             <label for="termsCheck">I agree to the <a href="javascript:void(0)" onclick="openModal()" style="color: #3498db;">Terms & No-Refund Policy</a></label>
         </div>
-
+<div style="margin-bottom: 20px; text-align: left;">
+    <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #2c3e50;">Referral Code (Optional)</label>
+    <input type="text" name="referral_code" placeholder="e.g. TU-CHIDI-1234" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
+    <small style="color: #7f8c8d;">Enter a friend's code to give them commission!</small>
+</div>
         <button type="submit" id="submitBtn" style="width: 100%; background: #27ae60; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
             Confirm & Proceed
         </button>
     </form>
 </section>
-
+<section style="background: #ecf0f1; padding: 60px 20px; text-align: center; border-radius: 20px; margin: 40px auto; max-width: 1100px;">
+    <h2 style="color: #2c3e50; font-size: 2rem;">Double Your Savings! 🎁</h2>
+    <p style="color: #7f8c8d; max-width: 600px; margin: 0 auto 30px;">
+        Refer a friend for project printing or editing. When they place their first order, 
+        <strong>you both get 10% OFF</strong>. It’s a win-win for the whole department!
+    </p>
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="ambassador.html" class="btn" style="background: #2c3e50; padding: 15px 30px;">Become an Ambassador</a>
+        <a href="https://wa.me/2348032677977?text=I%20want%20to%20refer%20a%20friend" class="btn" style="background: #27ae60; padding: 15px 30px;">Claim My 10%</a>
+    </div>
+</section>
 <footer>
     <div class="footer-grid">
         <div style="flex: 1; min-width: 300px;">
@@ -131,7 +173,9 @@
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.innerHTML = "Processing...";
         submitBtn.disabled = true;
-
+// Inside your form submit event listener
+const referral = document.querySelector('input[name="referral_code"]').value;
+localStorage.setItem('uReferral', referral || "None");
         // Save data for the success page to personalize WhatsApp
         localStorage.setItem('uName', document.getElementById('studentName').value);
         localStorage.setItem('uService', document.getElementById('serviceType').value);
@@ -153,5 +197,4 @@
     });
 </script>
 </body>
-
 </html>
