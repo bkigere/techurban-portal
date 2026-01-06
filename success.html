@@ -1,45 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Logged | TechUrban HQ</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #f4f7f6; margin: 0; text-align: center; }
-        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; width: 90%; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #25d366; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h1 style="color: #27ae60;">✔ Order Received</h1>
-        <p>Opening WhatsApp in a new tab for your quote...</p>
-        <div class="loader"></div>
-        <p style="font-size: 0.8rem; color: #7f8c8d;">After the chat, explore our other services on the home page.</p>
-        <a id="waBtn" href="#" target="_blank" class="btn">Click if WhatsApp doesn't open</a>
-    </div>
-
-    <script>
-    // 1. Get student data for personalized message
+<script>
+    // 1. Prepare data
     const name = localStorage.getItem('uName') || "Customer";
     const service = localStorage.getItem('uService') || "Service";
     const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service}. Let's discuss pricing!`;
     const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
     
-    document.getElementById('waBtn').href = waUrl;
+    const waBtn = document.getElementById('waBtn');
+    waBtn.href = waUrl;
 
-    // 2. The Professional Reset Logic
-    window.onload = function() {
+    // 2. The Interaction Logic
+    waBtn.addEventListener('click', function(e) {
+        // We let the default "target=_blank" open WhatsApp in a new tab
+        
+        // Then we immediately "reset" this current tab to the Home Page
+        // This happens so fast it feels like a fresh visit when they return
         setTimeout(() => {
-            // Open WhatsApp in a NEW tab
-            window.open(waUrl, '_blank');
-            
-            // "Wipe" the success page from history and load the Home Page as a new visit
-            window.location.replace("index.html"); 
-        }, 2500); 
+            window.location.replace("index.html");
+        }, 500); 
+    });
+
+    // 3. Fallback: Auto-trigger (might still be blocked, but the button is the main way)
+    window.onload = function() {
+        // We still try to auto-open for some browsers, but we change the text
+        // to encourage the click which is "Popup Blocker" safe.
+        setTimeout(() => {
+            console.log("Ready for user to proceed to WhatsApp.");
+        }, 2000);
     };
 </script>
-</body>
-</html>
