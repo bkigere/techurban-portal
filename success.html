@@ -3,46 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Logged | TechUrban HQ</title>
+    <title>Success | TechUrban HQ</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #f4f7f6; margin: 0; text-align: center; }
+        body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #f4f7f6; margin: 0; text-align: center; }
         .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; width: 90%; }
-        .icon-circle { width: 60px; height: 60px; background: #27ae60; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 20px; }
-        .btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; border: none; cursor: pointer; transition: 0.3s; }
-        .btn:hover { background: #128c7e; transform: scale(1.05); }
+        .btn { display: block; margin-top: 20px; padding: 15px; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #25d366; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="icon-circle">✔</div>
-        <h1 style="color: #2c3e50; margin-bottom: 10px;">Order Logged!</h1>
-        <p style="color: #7f8c8d;">Final Step: Connect with our agent on WhatsApp to get your pricing and delivery time.</p>
-        
-        <button id="finalAction" class="btn">Continue to WhatsApp Chat</button>
-        
-        <p style="margin-top: 25px; font-size: 0.8rem; color: #bdc3c7;">TechUrban HQ | Campus Excellence</p>
+        <h1 style="color: #27ae60;">✔ Order Logged</h1>
+        <p>Success! Your details are stored at TechUrban HQ.</p>
+        <div class="spinner"></div>
+        <p>Connecting you to WhatsApp for your quote...</p>
+        <a id="waBtn" href="#" class="btn">Click here to Chat Now</a>
     </div>
 
     <script>
-    // 1. Prepare the Data
-    const name = localStorage.getItem('uName') || "Customer";
-    const service = localStorage.getItem('uService') || "Service";
-    const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service}. Let's discuss pricing!`;
-    const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
-
-    const actionBtn = document.getElementById('finalAction');
-
-    // 2. The Multi-Task Action
-    actionBtn.addEventListener('click', function() {
-        // Task A: Open WhatsApp in a NEW tab (Browser allows this because it's a click)
-        window.open(waUrl, '_blank');
+        const name = localStorage.getItem('uName') || "Customer";
+        const service = localStorage.getItem('uService') || "Service";
+        const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service} on the website. Let's discuss!`;
+        const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
         
-        // Task B: Immediately replace THIS tab with a fresh visit to Home Page
-        // We use a tiny delay (100ms) to ensure Task A starts first
+        document.getElementById('waBtn').href = waUrl;
+
+        // Automatically trigger WhatsApp after 2 seconds
         setTimeout(() => {
-            window.location.replace("index.html");
-        }, 100);
-    });
+            window.location.href = waUrl;
+        }, 2000);
     </script>
 </body>
 </html>
