@@ -22,12 +22,16 @@
     </div>
 
     <script>
-        const name = localStorage.getItem('uName') || "Customer";
-        const service = localStorage.getItem('uService') || "Service";
-        const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service} on the website. Let's discuss!`;
-        const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
-        
-        document.getElementById('waBtn').href = waUrl;
+        // Inside success.html script
+const name = localStorage.getItem('uName') || "Customer";
+const service = localStorage.getItem('uService') || "Service";
+const referral = localStorage.getItem('uReferral') || "None";
+
+// This updated message tells you exactly who to credit in your Google Sheet
+const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service}. (Referral Code: ${referral})`;
+
+const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
+document.getElementById('waBtn').href = waUrl;
 
         // Automatically trigger WhatsApp after 2 seconds
         setTimeout(() => {
@@ -36,3 +40,4 @@
     </script>
 </body>
 </html>
+
