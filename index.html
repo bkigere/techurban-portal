@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="TechUrban">
-    <link rel="apple-touch-icon" href="https://via.placeholder.com/180/2c3e50/ffffff?text=TU">
-    <link rel="icon" type="image/png" href="https://via.placeholder.com/192/2c3e50/ffffff?text=TU">
     <meta name="theme-color" content="#2c3e50">
-    <title>TechUrban Ltd | Campus Business Center</title>
+    <title>TechUrban HQ | Campus Business Center</title>
     
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #f4f7f6; color: #333; scroll-behavior: smooth; }
@@ -29,16 +26,19 @@
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
         
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); }
-        .modal-content { background-color: white; margin: 10% auto; padding: 30px; border-radius: 12px; width: 85%; max-width: 500px; line-height: 1.6; position: relative; }
+        .modal-content { background-color: white; margin: 10% auto; padding: 30px; border-radius: 12px; width: 85%; max-width: 500px; line-height: 1.6; }
         
         .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: white; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 5px 15px rgba(0,0,0,0.2); z-index: 1000; text-decoration: none; line-height: 60px; }
+        
+        footer { padding: 40px 20px; background: #2c3e50; color: white; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo-container">
-        <h1 class="logo-text">Tech<span>Urban</span><span class="status-dot"></span></h1>
+        <h1 class="logo-text">Tech<span>Urban</span> HQ<span class="status-dot"></span></h1>
         <div class="tagline">Campus Business Excellence</div>
     </div>
 </header>
@@ -61,65 +61,46 @@
     </div>
 </section>
 
-<section style="padding: 40px 20px; background: #3498db; color: white; text-align: center; border-radius: 15px; margin: 20px auto; max-width: 1100px;">
-    <h2>Spread the Word & Save! 🤝</h2>
-    <p>Invite a friend and you both get <strong>10% OFF</strong>.</p>
-    <a href="ambassador.html" style="color: white; font-weight: bold; text-decoration: underline;">Apply for Ambassador Program ➜</a>
-</section>
-
 <section id="order-section">
     <h2 style="text-align: center; color: #2c3e50;">Place an Order</h2>
-    <form id="techUrbanForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        
+    <form id="techUrbanForm" action="https://formspree.io/f/mdakrvvv" method="POST">
         <label>Full Name</label>
-        <input type="text" name="Student_Name" id="studentName" required placeholder="Enter your name">
+        <input type="text" name="name" id="studentName" required placeholder="Enter your name">
 
         <label>Service Required</label>
-        <select name="Service_Type" id="serviceType">
+        <select name="service" id="serviceType">
             <option value="Printing & Binding">Printing & Binding</option>
             <option value="Academic Editing">Academic Editing</option>
             <option value="Online Registration">Online Registration</option>
             <option value="Writing Services">Writing Services</option>
         </select>
 
-        <label>Instructions / Referral Name</label>
-        <textarea name="Special_Instructions" id="instructions" rows="4" placeholder="Mention your referrer here for a discount!"></textarea>
-
-        <div style="background: #eef2f3; padding: 15px; border-left: 5px solid #3498db; margin: 20px 0; border-radius: 5px; font-size: 0.85rem;">
-            <p style="margin: 0;"><strong>🛡️ Your Privacy:</strong> All documents are treated with 100% confidentiality.</p>
-        </div>
+        <label>Instructions / Referral</label>
+        <textarea name="message" id="instructions" rows="4" placeholder="Mention your referrer or specific needs here..."></textarea>
 
         <div style="margin: 15px 0;">
             <input type="checkbox" id="termsCheck" required style="width: auto; margin-right: 10px;">
             <label for="termsCheck">I agree to the <a href="javascript:void(0)" onclick="openModal()" style="color: #3498db;">Terms & No-Refund Policy</a></label>
         </div>
 
-        <button type="submit" style="width: 100%; background: #27ae60; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
-            Confirm & Message on WhatsApp
+        <button type="submit" id="submitBtn" style="width: 100%; background: #27ae60; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
+            Confirm & Proceed
         </button>
     </form>
 </section>
 
-<section style="padding: 40px 20px; background: #f9f9f9;">
-    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">FAQs</h2>
-    <details style="max-width: 800px; margin: 10px auto; background: white; padding: 15px; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-        <summary style="font-weight: bold;">Is there a physical office?</summary>
-        <p style="margin-top: 10px;">Yes! Visit us at the SUB, Ground Floor for physical collections.</p>
-    </details>
-</section>
-
-<footer style="padding: 40px 20px; background: #2c3e50; color: white;">
-    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px;">
+<footer>
+    <div class="footer-grid">
         <div style="flex: 1; min-width: 300px;">
             <h3>Our Location</h3>
-            <div style="border-radius: 10px; overflow: hidden; height: 200px; background:#444;">
-                <iframe src="about:blank" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+            <div style="border-radius: 10px; overflow: hidden; height: 250px;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.8!2d7.4!3d9.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMDAnMDAuMCJOIDfCsDI0JzAwLjAiRQ!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
         <div style="flex: 1; min-width: 300px;">
             <h3>Contact Us</h3>
-            <p>📍 SUB, Ground Floor</p>
-            <p>📧 info@techurbanhub.com</p>
+            <p>📍 Office 4, Opposite Auditorium</p>
+            <p>📧 info@techurbanhq.com</p>
             <p>📞 +234 803 267 7977</p>
         </div>
     </div>
@@ -128,59 +109,48 @@
 <div id="termsModal" class="modal">
     <div class="modal-content">
         <h2 style="color: #c0392b;">Important Policy</h2>
-        <p><strong>NO REFUND:</strong> Due to the personalized nature of our work, all payments are final once execution begins.</p>
-        <button onclick="closeModal()" style="width: 100%; background: #2c3e50; color: white; padding: 10px; border: none; border-radius: 8px; cursor: pointer;">I Understand</button>
+        <p><strong>NO REFUND:</strong> All payments are final once execution begins.</p>
+        <button onclick="closeModal()" class="btn" style="width:100%">I Understand</button>
     </div>
 </div>
 
 <a href="https://wa.me/2348032677977" class="whatsapp-float" target="_blank">💬</a>
 
 <script>
-    // 1. Modal Logic
     function openModal() { document.getElementById('termsModal').style.display = "block"; }
     function closeModal() { document.getElementById('termsModal').style.display = "none"; }
 
-    // 2. Service Selection Logic (Fixes your issue)
-    function selectService(serviceName) {
-        // Auto-select dropdown
-        const dropdown = document.getElementById('serviceType');
-        dropdown.value = serviceName;
-        
-        // Scroll to form
-        const formSection = document.getElementById('order-section');
-        formSection.scrollIntoView({ behavior: 'smooth' });
-        
-        // Visual Highlight
-        formSection.style.border = "2px solid #3498db";
-        setTimeout(() => { formSection.style.border = "2px solid transparent"; }, 2000);
+    function selectService(val) {
+        document.getElementById('serviceType').value = val;
+        document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // 3. Referral Logic
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const ref = urlParams.get('ref');
-        if (ref) {
-            document.getElementById('instructions').value = "Referral Code: " + ref + "\n" + document.getElementById('instructions').value;
-        }
-    };
+    const form = document.getElementById('techUrbanForm');
+    form.addEventListener("submit", function(ev) {
+        ev.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerHTML = "Processing...";
+        submitBtn.disabled = true;
 
-    // 4. Submission Logic (Formspree + WhatsApp)
-    document.getElementById('techUrbanForm').onsubmit = function(e) {
-        const name = document.getElementById('studentName').value;
-        const service = document.getElementById('serviceType').value;
-        const whatsappMsg = `Hi TechUrban, I am ${name}. I just submitted an order for ${service}. Let's discuss pricing!`;
-        
-        // Small delay to allow Formspree to trigger before opening WhatsApp
-        setTimeout(() => {
-            window.open(`https://wa.me/2348032677977?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
-        }, 800);
-    };
+        // Save data for the success page to personalize WhatsApp
+        localStorage.setItem('uName', document.getElementById('studentName').value);
+        localStorage.setItem('uService', document.getElementById('serviceType').value);
 
-    // Close modal on click outside
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('termsModal')) { closeModal(); }
-    }
+        const data = new FormData(form);
+        fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = "success.html"; 
+            } else {
+                alert("Error sending order. Please try again.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "Confirm & Proceed";
+            }
+        });
+    });
 </script>
-
 </body>
 </html>
