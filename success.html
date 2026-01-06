@@ -3,36 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success | TechUrban HQ</title>
+    <title>Order Logged | TechUrban HQ</title>
     <style>
-        body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #f4f7f6; margin: 0; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #f4f7f6; margin: 0; text-align: center; }
         .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; width: 90%; }
-        .btn { display: block; margin-top: 20px; padding: 15px; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #25d366; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #25d366; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1 style="color: #27ae60;">✔ Order Logged</h1>
-        <p>Success! Your details are stored at TechUrban HQ.</p>
-        <div class="spinner"></div>
-        <p>Connecting you to WhatsApp for your quote...</p>
-        <a id="waBtn" href="#" class="btn">Click here to Chat Now</a>
+        <h1 style="color: #27ae60;">✔ Order Received</h1>
+        <p>Opening WhatsApp in a new tab for your quote...</p>
+        <div class="loader"></div>
+        <p style="font-size: 0.8rem; color: #7f8c8d;">After the chat, explore our other services on the home page.</p>
+        <a id="waBtn" href="#" target="_blank" class="btn">Click if WhatsApp doesn't open</a>
     </div>
 
     <script>
-        const name = localStorage.getItem('uName') || "Customer";
-        const service = localStorage.getItem('uService') || "Service";
-        const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service} on the website. Let's discuss!`;
-        const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
-        
-        document.getElementById('waBtn').href = waUrl;
+    // 1. Get student data for personalized message
+    const name = localStorage.getItem('uName') || "Customer";
+    const service = localStorage.getItem('uService') || "Service";
+    const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service}. Let's discuss pricing!`;
+    const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
+    
+    document.getElementById('waBtn').href = waUrl;
 
-        // Automatically trigger WhatsApp after 2 seconds
+    // 2. The Professional Reset Logic
+    window.onload = function() {
         setTimeout(() => {
-            window.location.href = waUrl;
-        }, 2000);
-    </script>
+            // Open WhatsApp in a NEW tab
+            window.open(waUrl, '_blank');
+            
+            // "Wipe" the success page from history and load the Home Page as a new visit
+            window.location.replace("index.html"); 
+        }, 2500); 
+    };
+</script>
 </body>
 </html>
