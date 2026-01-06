@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambassador Login | TechUrban HQ</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1.1rem; text-align: center; }
+        .btn { background: #2c3e50; color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; }
+        .stats-grid { display: none; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .stat-card { background: #ecf0f1; padding: 15px; border-radius: 10px; }
+        .stat-card span { display: block; font-size: 0.8rem; color: #7f8c8d; }
+        .stat-card b { font-size: 1.2rem; color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+<div class="login-box" id="loginBox">
+    <h2>Ambassador Portal</h2>
+    <p>Enter your unique referral code to check your earnings.</p>
+    <input type="text" id="ambassadorCode" placeholder="e.g. TU-JOE-001">
+    <button class="btn" onclick="checkStats()">View My Dashboard</button>
+    <div id="loader" style="display:none; margin-top:10px;">Checking records...</div>
+</div>
+
+<div class="login-box" id="dashboard" style="display:none;">
+    <h2 id="welcomeName">Welcome!</h2>
+    <div class="stats-grid" id="statsGrid" style="display:grid;">
+        <div class="stat-card"><span>Referrals</span><b id="refCount">0</b></div>
+        <div class="stat-card"><span>Earned</span><b id="pendingAmt">₦0</b></div>
+        <div class="stat-card"><span>Total Paid</span><b id="paidAmt">₦0</b></div>
+        <div class="stat-card"><span>Status</span><b id="statusNote" style="font-size:0.9rem;">-</b></div>
+    </div>
+    <button class="btn" style="margin-top:20px; background:#95a5a6;" onclick="location.reload()">Logout</button>
+</div>
+
+<script>
+    function checkStats() {
+        const code = document.getElementById('ambassadorCode').value;
+        const loader = document.getElementById('loader');
+        const scriptUrl = "YOUR_GOOGLE_SCRIPT_URL_HERE"; // PASTE YOUR URL HERE
+
+        if(!code) return alert("Please enter your code");
+        
+        loader.style.display = "block";
+
+        fetch(`${scriptUrl}?code=${code}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === "success") {
+                document.getElementById('loginBox').style.display = "none";
+                document.getElementById('dashboard').style.display = "block";
+                document.getElementById('welcomeName').innerText = `Hi, ${data.name}!`;
+                document.getElementById('refCount').innerText = data.referrals;
+                document.getElementById('pendingAmt').innerText = "₦" + data.pending;
+                document.getElementById('paidAmt').innerText = "₦" + data.totalPaid;
+                document.getElementById('statusNote').innerText = data.payStatus;
+            } else {
+                alert("Invalid Code. Contact Admin.");
+            }
+            loader.style.display = "none";
+        })
+        .catch(err => alert("Error connecting to database."));
+    }
+</script>
+</body>
+</html>
