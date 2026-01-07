@@ -62,6 +62,19 @@
     </div>
 </section>
 
+    <section style="background: #ffffff; padding: 40px 20px; border-radius: 20px; margin: 30px auto; max-width: 1000px; border: 1px solid #e0e6ed; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+    <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; text-align: left;">
+        <div style="font-size: 3rem; background: #f0f7ff; padding: 20px; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">🚚</div>
+        <div style="flex: 1; min-width: 300px;">
+            <h2 style="color: #2c3e50; margin: 0 0 10px 0; font-size: 1.5rem;">Fast Campus & Worldwide Delivery</h2>
+            <p style="color: #5d6d7e; line-height: 1.6; margin: 0;">
+                Too busy to come to the office? <strong>No problem!</strong> We deliver straight to your <strong>Department, Faculty, or Hostel</strong>. We also offer nationwide and worldwide shipping.
+            </p>
+            <span style="display: inline-block; margin-top: 10px; color: #3498db; font-weight: bold; font-size: 0.9rem;">*Standard delivery fees apply</span>
+        </div>
+    </div>
+</section>
+
 <section style="background: #eef2f5; padding: 50px 20px; text-align: center; border-radius: 25px; margin: 40px auto; max-width: 1000px; border: 1px solid #d1d9e0;">
     
     <div style="background: #27ae60; color: white; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;">
@@ -106,15 +119,22 @@
         <label>Instructions / Referral</label>
         <textarea name="message" id="instructions" rows="4" placeholder="Mention your referrer or specific needs here..."></textarea>
 
-        <div style="margin: 15px 0;">
-            <input type="checkbox" id="termsCheck" required style="width: auto; margin-right: 10px;">
-            <label for="termsCheck">I agree to the <a href="javascript:void(0)" onclick="openModal()" style="color: #3498db;">Terms & No-Refund Policy</a></label>
-        </div>
+        <label>How would you like to receive your work?</label>
+        <select name="delivery_method" id="deliveryMethod">
+            <option value="Office Pickup">I will pick it up at the Office (Free)</option>
+            <option value="Campus Delivery">Deliver to my Faculty/Hostel (Campus Fee)</option>
+            <option value="Off-Campus Shipping">Ship to my location (Off-Campus Fee)</option>
+        </select>
+         
 <div style="margin-bottom: 20px; text-align: left;">
     <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #2c3e50;">Referral Code (Optional)</label>
     <input type="text" name="referral_code" placeholder="e.g. TU-CHIDI-1234" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
     <small style="color: #7f8c8d;">Enter a friend's code to give them commission!</small>
 </div>
+         <div style="margin: 15px 0;">
+            <input type="checkbox" id="termsCheck" required style="width: auto; margin-right: 10px;">
+            <label for="termsCheck">I agree to the <a href="javascript:void(0)" onclick="openModal()" style="color: #3498db;">Terms & No-Refund Policy</a></label>
+        </div>
         <button type="submit" id="submitBtn" style="width: 100%; background: #27ae60; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
             Confirm & Proceed
         </button>
@@ -197,4 +217,5 @@ localStorage.setItem('uReferral', referral || "None");
     });
 </script>
 </body>
+
 </html>
