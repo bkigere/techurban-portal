@@ -23,12 +23,18 @@
 
     <script>
         // Inside success.html script
-const name = localStorage.getItem('uName') || "Customer";
-const service = localStorage.getItem('uService') || "Service";
+const name = localStorage.getItem('uName');
+const service = localStorage.getItem('uService');
+const delivery = localStorage.getItem('uDelivery');
+const location = localStorage.getItem('uLocation'); // Get the specific location
 const referral = localStorage.getItem('uReferral') || "None";
 
-// This updated message tells you exactly who to credit in your Google Sheet
-const msg = `Hi TechUrban HQ, I am ${name}. I just submitted an order for ${service}. (Referral Code: ${referral})`;
+// This creates a professional order summary for your WhatsApp
+const msg = `Hi TechUrban HQ, I'm ${name}. I'd like to order: ${service}.
+
+📍 Delivery: ${delivery}
+🏠 Address: ${location}
+🎟️ Referral: ${referral}`;
 
 const waUrl = `https://wa.me/2348032677977?text=${encodeURIComponent(msg)}`;
 document.getElementById('waBtn').href = waUrl;
@@ -40,4 +46,5 @@ document.getElementById('waBtn').href = waUrl;
     </script>
 </body>
 </html>
+
 
