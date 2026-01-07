@@ -3,48 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ambassador Program | TechUrban Ltd</title>
+    <title>Ambassador Program | TechUrban HQ</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; line-height: 1.6; }
-        .hero { background: #2c3e50; color: white; padding: 60px 20px; text-align: center; }
-        .form-container { max-width: 600px; margin: -50px auto 50px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .submit-btn { width: 100%; background: #3498db; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #f4f7f6; color: #2c3e50; line-height: 1.6; }
+        
+        /* Header & Hero */
+        header { background: #2c3e50; color: white; padding: 3rem 1rem; text-align: center; }
+        .hero-text { margin-bottom: 40px; }
+        .hero-text h1 { font-size: 2.2rem; margin: 0; }
+        .hero-text p { opacity: 0.9; font-size: 1.1rem; }
+
+        /* Benefits Section */
+        .benefits { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 0 20px; margin-top: -30px; }
+        .benefit-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border-top: 4px solid #3498db; }
+        .benefit-card h3 { color: #3498db; margin-top: 0; }
+
+        /* Form Styling */
+        .form-container { max-width: 600px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        label { font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
+        
+        .submit-btn { width: 100%; background: #2c3e50; color: white; padding: 16px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; transition: background 0.3s; }
+        .submit-btn:hover { background: #3498db; }
+
+        .back-home { text-align: center; margin-bottom: 50px; }
+        .back-home a { color: #7f8c8d; text-decoration: none; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <h1>Join the TechUrban Team</h1>
-    <p>Earn commissions and build your resume as a Campus Ambassador.</p>
-</div>
+<header>
+    <div class="hero-text">
+        <h1>Become a TechUrban Ambassador</h1>
+        <p>Partner with the #1 Campus Business Center</p>
+    </div>
+</header>
+
+<section class="benefits">
+    <div class="benefit-card">
+        <h3>Earn Commission</h3>
+        <p>Get paid for every printing, editing, or registration referral you bring in.</p>
+    </div>
+    <div class="benefit-card">
+        <h3>Build Your CV</h3>
+        <p>Gain real-world marketing experience and receive a signed Recommendation Letter.</p>
+    </div>
+</section>
 
 <div class="form-container">
-    <form action="https://formspree.io/f/xkogdvye" method="POST">
+    <form id="ambassadorForm" action="https://formspree.io/f/mdakrvvv" method="POST">
         <label>Full Name</label>
-        <input type="text" name="name" required>
+        <input type="text" name="name" placeholder="Enter your full name" required>
 
         <label>Department & Level</label>
-        <input type="text" name="academic_info" placeholder="e.g. Engineering, 300L" required>
+        <input type="text" name="academic_info" placeholder="e.g. Political Science, 400L" required>
 
         <label>WhatsApp Number</label>
-        <input type="tel" name="phone" required>
+        <input type="tel" name="phone" placeholder="Your active WhatsApp number" required>
 
-        <label>Why do you want to be a TechUrban Ambassador?</label>
-        <textarea name="motivation" rows="4" placeholder="Tell us about your influence on campus..."></textarea>
-
-        <label>Estimated number of students you can reach weekly?</label>
-        <select name="reach">
-            <option value="1-50">1 - 50</option>
-            <option value="50-200">50 - 200</option>
-            <option value="200+">200+</option>
+        <label>Weekly Student Reach</label>
+        <select name="reach" required>
+            <option value="" disabled selected>Select estimated reach</option>
+            <option value="1-50">1 - 50 Students</option>
+            <option value="51-200">51 - 200 Students</option>
+            <option value="200+">200+ Students</option>
         </select>
 
-        <input type="hidden" name="_subject" value="New Ambassador Application!">
-        <button type="submit" class="submit-btn">Submit Application</button>
+        <label>Motivation</label>
+        <textarea name="motivation" rows="4" placeholder="How do you plan to promote TechUrban HQ to your peers?" required></textarea>
+
+        <input type="hidden" name="_subject" value="New TechUrban Ambassador Application">
+
+        <button type="submit" id="subBtn" class="submit-btn">Apply Now</button>
     </form>
 </div>
 
-</body>
+<div class="back-home">
+    <a href="index.html">← Return to Home Page</a>
+</div>
 
+<script>
+    const form = document.getElementById('ambassadorForm');
+    
+    form.addEventListener("submit", function(ev) {
+        ev.preventDefault();
+        const btn = document.getElementById('subBtn');
+        btn.innerHTML = "Submitting Application...";
+        btn.disabled = true;
+
+        const data = new FormData(form);
+        
+        fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                alert("Success! Your application has been sent. We'll contact you on WhatsApp shortly.");
+                
+                // The "New Visit" Reset: Wipes history and reloads home page
+                window.location.replace("index.html");
+            } else {
+                alert("Oops! There was a problem. Please try again.");
+                btn.disabled = false;
+                btn.innerHTML = "Apply Now";
+            }
+        }).catch(error => {
+            alert("Connection error. Please check your internet and try again.");
+            btn.disabled = false;
+            btn.innerHTML = "Apply Now";
+        });
+    });
+</script>
+
+</body>
 </html>
