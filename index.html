@@ -189,39 +189,32 @@
         document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    const techForm = document.getElementById('techUrbanForm');
     techForm.onsubmit = function(e) {
         e.preventDefault();
         
         const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerHTML = "Logging Details...";
+        submitBtn.innerHTML = "Processing...";
         submitBtn.disabled = true;
 
-        // GRAB THE DATA
-        const name = document.getElementById('studentName').value;
-        const service = document.getElementById('serviceType').value;
-        const delivery = document.getElementById('deliveryMethod').value; // Ensure this ID exists in your HTML
-        const referral = document.getElementById('refCode').value || "None";
+        // 1. Capture and Save data locally IMMEDIATELY
+        localStorage.setItem('uName', document.getElementById('studentName').value);
+        localStorage.setItem('uService', document.getElementById('serviceType').value);
+        localStorage.setItem('uDelivery', document.getElementById('deliveryMethod').value); 
+        localStorage.setItem('uReferral', document.getElementById('refCode').value || "None");
 
-        // SAVE THE DATA (Check these names carefully)
-        localStorage.setItem('uName', name);
-        localStorage.setItem('uService', service);
-        localStorage.setItem('uDelivery', delivery); 
-        localStorage.setItem('uReferral', referral);
+        // 2. Fire the data to Google Sheets (don't wait for a response)
+        fetch(scriptUrl, { method: 'POST', body: new FormData(techForm), mode: 'no-cors' });
 
-        // SEND TO GOOGLE SHEETS
-        fetch(scriptUrl, { method: 'POST', body: new FormData(techForm) })
-            .then(res => {
-                window.location.href = "success.html";
-            })
-            .catch(err => {
-                window.location.href = "success.html"; // Redirect even if sheet fails
-            });
+        // 3. Redirect IMMEDIATELY (Makes it feel 10x faster)
+        setTimeout(() => {
+            window.location.href = "success.html";
+        }, 100); 
     };
 </script>
 </body>
 
 </html>
+
 
 
 
