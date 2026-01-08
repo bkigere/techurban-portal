@@ -27,42 +27,32 @@
 </div>
 
 <script>
-    // 1. Pull data
     const name = localStorage.getItem('uName') || "Customer";
-    const service = localStorage.getItem('uService') || "Service";
-    const delivery = localStorage.getItem('uDelivery') || "Office Pickup";
+    const service = localStorage.getItem('uService') || "Order";
+    const delivery = localStorage.getItem('uDelivery') || "Pickup";
     const referral = localStorage.getItem('uReferral') || "None";
 
-    // 2. Setup WhatsApp Button
     const btn = document.getElementById('finalStepBtn');
     const phone = "2348032677977";
     
-    // Using encodeURIComponent prevents the message from cutting off
     const rawMessage = `Hello TechUrban HQ! My name is ${name}. I just placed an order for *${service}*.
-
+    
 📍 Delivery: ${delivery}
-🎁 Referral: ${referral}
-
-What is the next step for payment?`;
+🎁 Referral: ${referral}`;
 
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(rawMessage)}`;
 
     btn.onclick = function(e) {
         e.preventDefault(); 
-
-        // Open WhatsApp in a NEW tab
-        window.open(waUrl, '_blank');
-
-        // Clear local storage for a fresh start
-        localStorage.clear();
-
-        // Redirect the current tab back to home WITHOUT any unique IDs
-        window.location.href = "index.html"; 
+        window.open(waUrl, '_blank'); // Opens WhatsApp
+        localStorage.clear(); // Cleans memory
+        window.location.href = "index.html"; // Returns home with NO unique ID
     };
 </script>
     
 </body>
 </html>
+
 
 
 
