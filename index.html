@@ -190,37 +190,35 @@
     }
 
     const techForm = document.getElementById('techUrbanForm');
+    
     techForm.onsubmit = function(e) {
         e.preventDefault();
         
         const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerHTML = "Logging Details...";
+        submitBtn.innerHTML = "Processing...";
         submitBtn.disabled = true;
 
-        // Capture data
-        const name = document.getElementById('studentName').value;
-        const service = document.getElementById('serviceType').value;
-        const delivery = document.getElementById('deliveryMethod').value;
-        const referral = document.getElementById('refCode').value || "None";
+        // 1. Save data locally for the WhatsApp message
+        localStorage.setItem('uName', document.getElementById('studentName').value);
+        localStorage.setItem('uService', document.getElementById('serviceType').value);
+        localStorage.setItem('uDelivery', document.getElementById('deliveryMethod').value);
+        localStorage.setItem('uReferral', document.getElementById('refCode').value || "None");
 
-        // Save for success page (This fixes your WhatsApp problem)
-        localStorage.setItem('uName', name);
-        localStorage.setItem('uService', service);
-        localStorage.setItem('uDelivery', delivery);
-        localStorage.setItem('uReferral', referral);
+        // 2. Fire data to Google Sheets (mode: no-cors makes this instant)
+        fetch(scriptUrl, { 
+            method: 'POST', 
+            body: new FormData(techForm),
+            mode: 'no-cors' 
+        });
 
-        // Send to Google Sheets
-        fetch(scriptUrl, { method: 'POST', body: new FormData(techForm) })
-            .then(res => {
-                window.location.href = "success.html";
-            })
-            .catch(err => {
-                console.error('Automation error:', err);
-                window.location.href = "success.html"; // Fail-safe
-            });
+        // 3. Move to success page IMMEDIATELY
+        setTimeout(() => {
+            window.location.href = "success.html";
+        }, 300);
     };
 </script>
 </body>
 
 </html>
+
 
