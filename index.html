@@ -179,38 +179,45 @@
 <a href="https://wa.me/2348032677977" class="whatsapp-float" target="_blank">💬</a>
 
 <script>
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbxsmpUkDnGBfStFYcf1Eucx81H-hsnqyoRaj7z4_Wm3dvFGfzQA9jlw64LjsWMGN8DC2w/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxsmpUkDnGBfStFYcf1Eucx81H-hsnqyoRaj7z4_Wm3dvFGfzQA9jlw64LjsWMGN8DC2w/exec";
 
-    function openModal() { document.getElementById('termsModal').style.display = "block"; }
-    function closeModal() { document.getElementById('termsModal').style.display = "none"; }
+    function openModal() { document.getElementById('termsModal').style.display = "block"; }
+    function closeModal() { document.getElementById('termsModal').style.display = "none"; }
 
-    function selectService(val) {
-        document.getElementById('serviceType').value = val;
-        document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
-    }
+    function selectService(val) {
+        document.getElementById('serviceType').value = val;
+        document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+    }
 
-    techForm.onsubmit = function(e) {
-        e.preventDefault();
-        
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerHTML = "Processing...";
-        submitBtn.disabled = true;
+    const techForm = document.getElementById('techUrbanForm');
 
-        // 1. Capture and Save data locally IMMEDIATELY
-        localStorage.setItem('uName', document.getElementById('studentName').value);
-        localStorage.setItem('uService', document.getElementById('serviceType').value);
-        localStorage.setItem('uDelivery', document.getElementById('deliveryMethod').value); 
-        localStorage.setItem('uReferral', document.getElementById('refCode').value || "None");
+    techForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // STOP the page from refreshing/changing URL
 
-        // 2. Fire the data to Google Sheets (don't wait for a response)
-        fetch(scriptUrl, { method: 'POST', body: new FormData(techForm), mode: 'no-cors' });
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerHTML = "Processing...";
+        submitBtn.disabled = true;
 
-        // 3. Redirect IMMEDIATELY (Makes it feel 10x faster)
-        setTimeout(() => {
-            window.location.href = "success.html";
-        }, 100); 
-    };
+        // 1. Capture and Save data locally IMMEDIATELY
+        localStorage.setItem('uName', document.getElementById('studentName').value);
+        localStorage.setItem('uService', document.getElementById('serviceType').value);
+        localStorage.setItem('uDelivery', document.getElementById('deliveryMethod').value); 
+        localStorage.setItem('uReferral', document.getElementById('refCode').value || "None");
+
+        // 2. Fire the data to Google Sheets (High Speed Mode)
+        fetch(scriptUrl, { 
+            method: 'POST', 
+            body: new FormData(techForm),
+            mode: 'no-cors' 
+        });
+
+        // 3. Redirect to success page (NO unique IDs)
+        setTimeout(() => {
+            window.location.href = "success.html";
+        }, 300); 
+    });
 </script>
 </body>
 
 </html>
+
