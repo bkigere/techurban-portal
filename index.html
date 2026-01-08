@@ -1,200 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#2c3e50">
-    <title>TechUrban HQ | Campus Business Center</title>
-    
-   <style>
-    /* 1. Global Reset - This prevents elements from "popping" out of place */
-    * { box-sizing: border-box; } 
-
-    body { 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        margin: 0; padding: 0; background: #f4f7f6; color: #333; 
-        overflow-x: hidden; /* Prevents side-scrolling on mobile */
-    }
-
-    header { background: #2c3e50; color: white; padding: 2rem 1rem; text-align: center; }
-
-    /* 2. Responsive Logo Text */
-    .logo-text { font-size: 1.8rem; font-weight: 800; margin: 0; }
-    @media (min-width: 600px) { .logo-text { font-size: 2.5rem; } }
-
-    .container { 
-        padding: 20px; 
-        display: grid; 
-        grid-template-columns: 1fr; /* Single column on mobile */
-        gap: 20px; 
-        max-width: 1200px; 
-        margin: 0 auto; 
-    }
-
-    @media (min-width: 768px) {
-        grid-template-columns: repeat(3, 1fr); /* 3 columns on Desktop */
-    }
-
-    .service-card { 
-        background: white; padding: 25px; border-radius: 12px; 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; 
-    }
-
-    /* 3. Force Inputs to fit Mobile Screen */
-    #order-section { 
-        width: 95%; max-width: 600px; margin: 20px auto; 
-        padding: 20px; background: white; border-radius: 15px; 
-    }
-
-    input, select, textarea { 
-        width: 100% !important; /* Forces inputs to stay inside the box */
-        display: block;
-        margin-bottom: 15px;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2c3e50">
+    <title>TechUrban HQ | Campus Business Center</title>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #f4f7f6; color: #333; scroll-behavior: smooth; }
+        header { background: #2c3e50; color: white; padding: 3rem 1rem; text-align: center; }
+        .logo-text { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin: 0; color: white; }
+        .logo-text span { font-weight: 300; color: #3498db; }
+        .status-dot { height: 10px; width: 10px; background-color: #27ae60; border-radius: 50%; display: inline-block; margin-left: 5px; box-shadow: 0 0 8px #27ae60; }
+        .tagline { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; margin-top: 5px; opacity: 0.8; }
+        
+        .container { padding: 40px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .service-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; border-bottom: 4px solid transparent; }
+        .service-card:hover { transform: translateY(-5px); border-bottom: 4px solid #3498db; }
+        
+        .btn { background: #3498db; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px; font-weight: bold; cursor: pointer; border: none; font-size: 14px; }
+        
+        #order-section { max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid transparent; transition: 0.3s; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); }
+        .modal-content { background-color: white; margin: 10% auto; padding: 30px; border-radius: 12px; width: 85%; max-width: 500px; line-height: 1.6; }
+        
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: white; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 5px 15px rgba(0,0,0,0.2); z-index: 1000; text-decoration: none; line-height: 60px; }
+        
+        footer { padding: 40px 20px; background: #2c3e50; color: white; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; }
+    </style>
 </head>
 <body>
 
 <header>
 
-    <div class="logo-container">
-        <h1 class="logo-text">Tech<span>Urban</span> HQ<span class="status-dot"></span></h1>
-        <div class="tagline">Campus Business Excellence</div>
-    </div>
+    <div class="logo-container">
+        <h1 class="logo-text">Tech<span>Urban</span> HQ<span class="status-dot"></span></h1>
+        <div class="tagline">Campus Business Excellence</div>
+    </div>
 </header>
 
 <section class="container">
-    <div class="service-card">
-        <h3>Printing & Binding</h3>
-        <p>Project printing and hardcover binding services.</p>
-        <button class="btn" onclick="selectService('Printing & Binding')">Order Now</button>
-    </div>
-    <div class="service-card">
-        <h3>Academic Editing</h3>
-        <p>Proofreading and international standard formatting.</p>
-        <button class="btn" onclick="selectService('Academic Editing')">Upload Draft</button>
-    </div>
-    <div class="service-card">
-        <h3>Online Registration</h3>
-        <p>Swift assistance with university & exam portals.</p>
-        <button class="btn" onclick="selectService('Online Registration')">Start Process</button>
-    </div>
+    <div class="service-card">
+        <h3>Printing & Binding</h3>
+        <p>Project printing and hardcover binding services.</p>
+        <button class="btn" onclick="selectService('Printing & Binding')">Order Now</button>
+    </div>
+    <div class="service-card">
+        <h3>Academic Editing</h3>
+        <p>Proofreading and international standard formatting.</p>
+        <button class="btn" onclick="selectService('Academic Editing')">Upload Draft</button>
+    </div>
+    <div class="service-card">
+        <h3>Online Registration</h3>
+        <p>Swift assistance with university & exam portals.</p>
+        <button class="btn" onclick="selectService('Online Registration')">Start Process</button>
+    </div>
 </section>
 
-    <section style="background: #ffffff; padding: 40px 20px; border-radius: 20px; margin: 30px auto; max-width: 1000px; border: 1px solid #e0e6ed; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-    <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; text-align: left;">
-        <div style="font-size: 3rem; background: #f0f7ff; padding: 20px; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">🚚</div>
-        <div style="flex: 1; min-width: 300px;">
-            <h2 style="color: #2c3e50; margin: 0 0 10px 0; font-size: 1.5rem;">Fast Campus & Worldwide Delivery</h2>
-            <p style="color: #5d6d7e; line-height: 1.6; margin: 0;">
-                Too busy to come to the office? <strong>No problem!</strong> We deliver straight to your <strong>Department, Faculty, or Hostel</strong>. We also offer nationwide and worldwide shipping.
-            </p>
-            <span style="display: inline-block; margin-top: 10px; color: #3498db; font-weight: bold; font-size: 0.9rem;">*Standard delivery fees apply</span>
-        </div>
-    </div>
+    <section style="background: #ffffff; padding: 40px 20px; border-radius: 20px; margin: 30px auto; max-width: 1000px; border: 1px solid #e0e6ed; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+    <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; text-align: left;">
+        <div style="font-size: 3rem; background: #f0f7ff; padding: 20px; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">🚚</div>
+        <div style="flex: 1; min-width: 300px;">
+            <h2 style="color: #2c3e50; margin: 0 0 10px 0; font-size: 1.5rem;">Fast Campus & Worldwide Delivery</h2>
+            <p style="color: #5d6d7e; line-height: 1.6; margin: 0;">
+                Too busy to come to the office? <strong>No problem!</strong> We deliver straight to your <strong>Department, Faculty, or Hostel</strong>. We also offer nationwide and worldwide shipping.
+            </p>
+            <span style="display: inline-block; margin-top: 10px; color: #3498db; font-weight: bold; font-size: 0.9rem;">*Standard delivery fees apply</span>
+        </div>
+    </div>
 </section>
 
 <section style="background: #eef2f5; padding: 50px 20px; text-align: center; border-radius: 25px; margin: 40px auto; max-width: 1000px; border: 1px solid #d1d9e0;">
-    
-    <div style="background: #27ae60; color: white; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;">
-        Student Special 🎁
-    </div>
+    
+    <div style="background: #27ae60; color: white; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;">
+        Student Special 🎁
+    </div>
 
-    <h2 style="color: #2c3e50; font-size: 2rem; margin-bottom: 10px; font-weight: 800;">Get Paid to Study 🎓</h2>
-    
-    <p style="color: #5d6d7e; max-width: 500px; margin: 0 auto 30px; font-size: 1.05rem;">
-        Refer a coursemate for printing or editing: <strong>They get 10% off</strong>, and <strong>you earn 10% cash.</strong> 
-    </p>
+    <h2 style="color: #2c3e50; font-size: 2rem; margin-bottom: 10px; font-weight: 800;">Get Paid to Study 🎓</h2>
+    
+    <p style="color: #5d6d7e; max-width: 500px; margin: 0 auto 30px; font-size: 1.05rem;">
+        Refer a coursemate for printing or editing: <strong>They get 10% off</strong>, and <strong>you earn 10% cash.</strong> 
+    </p>
 
-    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <a href="ambassador.html" 
-           style="background: #2c3e50; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s;">
-           Become an Ambassador
-        </a>
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="ambassador.html" 
+           style="background: #2c3e50; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+           Become an Ambassador
+        </a>
 
-        <a href="https://wa.me/2348032677977?text=I%20have%20a%20referral%20for%20TechUrban%20HQ!" 
-           target="_blank" 
-           rel="noopener noreferrer"
-           style="background: #27ae60; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s;">
-           Claim My 10%
-        </a>
-    </div>
+        <a href="https://wa.me/2348032677977?text=I%20have%20a%20referral%20for%20TechUrban%20HQ!" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           style="background: #27ae60; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+           Claim My 10%
+        </a>
+    </div>
 </section>
 
 <section id="order-section">
-    <h2 style="text-align: center; color: #2c3e50;">Place an Order</h2>
-    <form id="techUrbanForm">
-        <label>Full Name</label>
-        <input type="text" name="name" id="studentName" required placeholder="Enter your name">
+    <h2 style="text-align: center; color: #2c3e50;">Place an Order</h2>
+    <form id="techUrbanForm">
+        <label>Full Name</label>
+        <input type="text" name="name" id="studentName" required placeholder="Enter your name">
 
-        <label>Service Required</label>
-        <select name="service" id="serviceType">
-            <option value="Printing & Binding">Printing & Binding</option>
-            <option value="Academic Editing">Academic Editing</option>
-            <option value="Online Registration">Online Registration</option>
-            <option value="Writing Services">Writing Services</option>
-        </select>
+        <label>Service Required</label>
+        <select name="service" id="serviceType">
+            <option value="Printing & Binding">Printing & Binding</option>
+            <option value="Academic Editing">Academic Editing</option>
+            <option value="Online Registration">Online Registration</option>
+            <option value="Writing Services">Writing Services</option>
+        </select>
 
-        <label>Instructions / Referral</label>
-        <textarea name="message" id="instructions" rows="4" placeholder="Mention your referrer or specific needs here..."></textarea>
+        <label>Instructions / Referral</label>
+        <textarea name="message" id="instructions" rows="4" placeholder="Mention your referrer or specific needs here..."></textarea>
 
-        <label>How would you like to receive your work?</label>
-        <select name="delivery_method" id="deliveryMethod">
-            <option value="Office Pickup">I will pick it up at the Office (Free)</option>
-            <option value="Campus Delivery">Deliver to my Faculty/Hostel (Campus Fee)</option>
-            <option value="Off-Campus Shipping">Ship to my location (Off-Campus Fee)</option>
-        </select>
-         
+        <label>How would you like to receive your work?</label>
+        <select name="delivery_method" id="deliveryMethod">
+            <option value="Office Pickup">I will pick it up at the Office (Free)</option>
+            <option value="Campus Delivery">Deliver to my Faculty/Hostel (Campus Fee)</option>
+            <option value="Off-Campus Shipping">Ship to my location (Off-Campus Fee)</option>
+        </select>
+         
 <div style="margin-bottom: 20px; text-align: left;">
-    <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #2c3e50;">Referral Code (Optional)</label>
-    <input type="text" name="referral_code" id="refCode" placeholder="e.g. TU-CHIDI-1234" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
-    <small style="color: #7f8c8d;">Enter a friend's code to give them commission!</small>
+    <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #2c3e50;">Referral Code (Optional)</label>
+    <input type="text" name="referral_code" id="refCode" placeholder="e.g. TU-CHIDI-1234" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
+    <small style="color: #7f8c8d;">Enter a friend's code to give them commission!</small>
 </div>
-         <div style="margin: 15px 0;">
-            <input type="checkbox" id="termsCheck" required style="width: auto; margin-right: 10px;">
-            <label for="termsCheck">I agree to the <a href="javascript:void(0)" onclick="openModal()" style="color: #3498db;">Terms & No-Refund Policy</a></label>
-        </div>
-        <button type="submit" id="submitBtn" style="width: 100%; background: #27ae60; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
-            Confirm & Proceed
-        </button>
-    </form>
+         <div style="margin: 15px 0;">
+            <input type="checkbox" id="termsCheck" required style="width: auto; margin-right: 10px;">
+            <label for="termsCheck">I agree to the <a href="javascript:void(0)" onclick="openModal()" style="color: #3498db;">Terms & No-Refund Policy</a></label>
+        </div>
+        <button type="submit" id="submitBtn" style="width: 100%; background: #27ae60; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
+            Confirm & Proceed
+        </button>
+    </form>
 </section>
 <section style="background: #ecf0f1; padding: 60px 20px; text-align: center; border-radius: 20px; margin: 40px auto; max-width: 1100px;">
-    <h2 style="color: #2c3e50; font-size: 2rem;">Double Your Savings! 🎁</h2>
-    <p style="color: #7f8c8d; max-width: 600px; margin: 0 auto 30px;">
-        Refer a friend for project printing or editing. When they place their first order, 
-        <strong>you both get 10% OFF</strong>. It’s a win-win for the whole department!
-    </p>
-    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <a href="ambassador.html" class="btn" style="background: #2c3e50; padding: 15px 30px;">Become an Ambassador</a>
-        <a href="https://wa.me/2348032677977?text=I%20want%20to%20refer%20a%20friend" class="btn" style="background: #27ae60; padding: 15px 30px;">Claim My 10%</a>
-    </div>
+    <h2 style="color: #2c3e50; font-size: 2rem;">Double Your Savings! 🎁</h2>
+    <p style="color: #7f8c8d; max-width: 600px; margin: 0 auto 30px;">
+        Refer a friend for project printing or editing. When they place their first order, 
+        <strong>you both get 10% OFF</strong>. It’s a win-win for the whole department!
+    </p>
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="ambassador.html" class="btn" style="background: #2c3e50; padding: 15px 30px;">Become an Ambassador</a>
+        <a href="https://wa.me/2348032677977?text=I%20want%20to%20refer%20a%20friend" class="btn" style="background: #27ae60; padding: 15px 30px;">Claim My 10%</a>
+    </div>
 </section>
 <footer>
-    <div class="footer-grid">
-        <div style="flex: 1; min-width: 300px;">
-            <h3>Our Location</h3>
-            <div style="border-radius: 10px; overflow: hidden; height: 250px;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.918822725663!2d6.9276482736401315!3d4.803951640756601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cf0fa1a616f5%3A0x2a09f5deffb2559!2sTechUrban%20Ltd!5e1!3m2!1sen!2sng!4v1767709986939!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-        <div style="flex: 1; min-width: 300px;">
-            <h3>Contact Us</h3>
-            <p>📍 Office 4, Opposite Auditorium</p>
-            <p>📧 info@techurbanhq.com</p>
-            <p>📞 +234 803 267 7977</p>
-        </div>
-    </div>
+    <div class="footer-grid">
+        <div style="flex: 1; min-width: 300px;">
+            <h3>Our Location</h3>
+            <div style="border-radius: 10px; overflow: hidden; height: 250px;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.918822725663!2d6.9276482736401315!3d4.803951640756601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cf0fa1a616f5%3A0x2a09f5deffb2559!2sTechUrban%20Ltd!5e1!3m2!1sen!2sng!4v1767709986939!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div style="flex: 1; min-width: 300px;">
+            <h3>Contact Us</h3>
+            <p>📍 Office 4, Opposite Auditorium</p>
+            <p>📧 info@techurbanhq.com</p>
+            <p>📞 +234 803 267 7977</p>
+        </div>
+    </div>
 </footer>
 
 <div id="termsModal" class="modal">
-    <div class="modal-content">
-        <h2 style="color: #c0392b;">Important Policy</h2>
-        <p><strong>NO REFUND:</strong> All payments are final once execution begins.</p>
-        <button onclick="closeModal()" class="btn" style="width:100%">I Understand</button>
-    </div>
+    <div class="modal-content">
+        <h2 style="color: #c0392b;">Important Policy</h2>
+        <p><strong>NO REFUND:</strong> All payments are final once execution begins.</p>
+        <button onclick="closeModal()" class="btn" style="width:100%">I Understand</button>
+    </div>
 </div>
 
 <a href="https://wa.me/2348032677977" class="whatsapp-float" target="_blank">💬</a>
@@ -211,36 +190,37 @@
     }
 
     const techForm = document.getElementById('techUrbanForm');
-
-    techForm.addEventListener('submit', function(e) {
-        e.preventDefault(); 
-
+    techForm.onsubmit = function(e) {
+        e.preventDefault();
+        
         const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerHTML = "Processing...";
+        submitBtn.innerHTML = "Logging Details...";
         submitBtn.disabled = true;
 
         // Capture data
-        localStorage.setItem('uName', document.getElementById('studentName').value);
-        localStorage.setItem('uService', document.getElementById('serviceType').value);
-        localStorage.setItem('uDelivery', document.getElementById('deliveryMethod').value); 
-        localStorage.setItem('uReferral', document.getElementById('refCode').value || "None");
+        const name = document.getElementById('studentName').value;
+        const service = document.getElementById('serviceType').value;
+        const delivery = document.getElementById('deliveryMethod').value;
+        const referral = document.getElementById('refCode').value || "None";
 
-        // Send to Google Sheets - Fast Mode
-        fetch(scriptUrl, { 
-            method: 'POST', 
-            body: new FormData(techForm),
-            mode: 'no-cors' 
-        });
+        // Save for success page (This fixes your WhatsApp problem)
+        localStorage.setItem('uName', name);
+        localStorage.setItem('uService', service);
+        localStorage.setItem('uDelivery', delivery);
+        localStorage.setItem('uReferral', referral);
 
-        // Move to success page
-        setTimeout(() => {
-            window.location.href = "success.html";
-        }, 400); 
-    });
+        // Send to Google Sheets
+        fetch(scriptUrl, { method: 'POST', body: new FormData(techForm) })
+            .then(res => {
+                window.location.href = "success.html";
+            })
+            .catch(err => {
+                console.error('Automation error:', err);
+                window.location.href = "success.html"; // Fail-safe
+            });
+    };
 </script>
 </body>
 
 </html>
-
-
 
