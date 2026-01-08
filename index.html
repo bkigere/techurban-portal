@@ -197,31 +197,31 @@
         submitBtn.innerHTML = "Logging Details...";
         submitBtn.disabled = true;
 
-        // 1. Capture the values from the form inputs
+        // GRAB THE DATA
         const name = document.getElementById('studentName').value;
         const service = document.getElementById('serviceType').value;
-        const delivery = document.getElementById('deliveryMethod').value; // <--- THIS CAPTURES IT
+        const delivery = document.getElementById('deliveryMethod').value; // Ensure this ID exists in your HTML
         const referral = document.getElementById('refCode').value || "None";
 
-        // 2. Save for success page (IMPORTANT: match the names exactly)
+        // SAVE THE DATA (Check these names carefully)
         localStorage.setItem('uName', name);
         localStorage.setItem('uService', service);
-        localStorage.setItem('uDelivery', delivery); // <--- THIS SAVES IT
+        localStorage.setItem('uDelivery', delivery); 
         localStorage.setItem('uReferral', referral);
 
-        // 3. Send to Google Sheets (Replace with YOUR script URL)
+        // SEND TO GOOGLE SHEETS
         fetch(scriptUrl, { method: 'POST', body: new FormData(techForm) })
             .then(res => {
                 window.location.href = "success.html";
             })
             .catch(err => {
-                console.error('Sheet error:', err);
-                window.location.href = "success.html"; // Redirect anyway
+                window.location.href = "success.html"; // Redirect even if sheet fails
             });
     };
 </script>
 </body>
 
 </html>
+
 
 
