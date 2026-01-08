@@ -192,32 +192,33 @@
     const techForm = document.getElementById('techUrbanForm');
 
     techForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // STOP the page from refreshing/changing URL
+        e.preventDefault(); 
 
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.innerHTML = "Processing...";
         submitBtn.disabled = true;
 
-        // 1. Capture and Save data locally IMMEDIATELY
+        // Capture data
         localStorage.setItem('uName', document.getElementById('studentName').value);
         localStorage.setItem('uService', document.getElementById('serviceType').value);
         localStorage.setItem('uDelivery', document.getElementById('deliveryMethod').value); 
         localStorage.setItem('uReferral', document.getElementById('refCode').value || "None");
 
-        // 2. Fire the data to Google Sheets (High Speed Mode)
+        // Send to Google Sheets - Fast Mode
         fetch(scriptUrl, { 
             method: 'POST', 
             body: new FormData(techForm),
             mode: 'no-cors' 
         });
 
-        // 3. Redirect to success page (NO unique IDs)
+        // Move to success page
         setTimeout(() => {
             window.location.href = "success.html";
-        }, 300); 
+        }, 400); 
     });
 </script>
 </body>
 
 </html>
+
 
