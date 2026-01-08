@@ -28,38 +28,41 @@
 
 <script>
     // 1. Pull data from LocalStorage
+    // We use the EXACT keys we saved in index.html
     const name = localStorage.getItem('uName') || "Customer";
     const service = localStorage.getItem('uService') || "Academic Service";
-    const delivery = localStorage.getItem('uDelivery') || "Office Pickup";
+    const delivery = localStorage.getItem('uDelivery') || "Not Specified";
     const referral = localStorage.getItem('uReferral') || "None";
 
-    // 2. Display on UI
+    // 2. Display on UI (Optional: can also show delivery on the card)
     document.getElementById('userName').innerText = name;
     document.getElementById('userService').innerText = service;
 
     // 3. Setup the Button Action
     const btn = document.getElementById('finalStepBtn');
-    
-    // Create the WhatsApp link
     const phone = "2348032677977";
-    const text = `Hello TechUrban HQ! My name is ${name}. %0AI just placed an order for *${service}*. %0A%0A📍 Delivery: ${delivery} %0A🎁 Referral: ${referral} %0A%0AWhat is the next step for payment?`;
+    
+    // Create the WhatsApp link with Delivery included
+    const text = `Hello TechUrban HQ! My name is ${name}.%0AI just placed an order for *${service}*.%0A%0A📍 Delivery: ${delivery}%0A🎁 Referral: ${referral}%0A%0APlease let me know the next steps!`;
     const waUrl = `https://wa.me/${phone}?text=${text}`;
 
     btn.onclick = function(e) {
-        e.preventDefault(); // Stop default link behavior
+        e.preventDefault(); 
 
         // ACTION A: Open WhatsApp in a NEW tab
         window.open(waUrl, '_blank');
 
-        // ACTION B: Clear local storage so they look like a "first time" visitor next time
+        // ACTION B: Clear local storage so the next visit is "Fresh"
         localStorage.clear();
 
-        // ACTION C: Redirect THIS page back to home (index.html)
+        // ACTION C: Redirect the CURRENT tab to Home with a unique ID for traffic stats
+        const uniqueVisitID = Math.floor(Math.random() * 10000);
         setTimeout(() => {
-            window.location.href = "index.html"; 
-        }, 500); // Small delay to ensure the new tab opens first
+            window.location.href = `index.html?v=${uniqueVisitID}`; 
+        }, 500); 
     };
 </script>
-
+    
 </body>
 </html>
+
