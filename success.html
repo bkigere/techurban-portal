@@ -27,21 +27,21 @@
 </div>
 
 <script>
-    // 1. Pull data
+    // 1. Pull data from LocalStorage
     const name = localStorage.getItem('uName') || "Customer";
     const service = localStorage.getItem('uService') || "Academic Service";
     const delivery = localStorage.getItem('uDelivery') || "Office Pickup";
     const referral = localStorage.getItem('uReferral') || "None";
 
-    // 2. Update UI
+    // 2. Display on UI
     document.getElementById('userName').innerText = name;
     document.getElementById('userService').innerText = service;
 
-    // 3. WhatsApp Logic
+    // 3. Setup the Button Action
     const btn = document.getElementById('finalStepBtn');
     const phone = "2348032677977";
     
-    // We encode the URI to prevent the message from cutting off
+    // Create the raw text message
     const rawMessage = `Hello TechUrban HQ! My name is ${name}. I just placed an order for *${service}*.
 
 📍 Delivery: ${delivery}
@@ -49,20 +49,27 @@
 
 What is the next step for payment?`;
 
+    // The MAGIC FIX: encodeURIComponent makes sure the message never cuts off
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(rawMessage)}`;
 
     btn.onclick = function(e) {
         e.preventDefault(); 
-        window.open(waUrl, '_blank'); // Open WhatsApp in new tab
-        localStorage.clear(); // Clear data for fresh visit
-        
+
+        // ACTION A: Open WhatsApp in a NEW tab
+        window.open(waUrl, '_blank');
+
+        // ACTION B: Clear local storage so they look like a "first time" visitor
+        localStorage.clear();
+
+        // ACTION C: Redirect THIS page back to home with a unique visit ID
         setTimeout(() => {
             window.location.href = "index.html?v=" + Math.random().toString(36).substring(7); 
-        }, 800); 
+        }, 500); 
     };
 </script>
     
 </body>
 </html>
+
 
 
