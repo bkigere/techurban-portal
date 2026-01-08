@@ -33,31 +33,37 @@
     const delivery = localStorage.getItem('uDelivery') || "Pickup";
     const referral = localStorage.getItem('uReferral') || "None";
 
-    // DISPLAY the data on the page
-    document.getElementById('userName').textContent = name;
-    document.getElementById('userService').textContent = service;
+    // Display names on screen
+    const nameDisplay = document.getElementById('userName');
+    const serviceDisplay = document.getElementById('userService');
+    if(nameDisplay) nameDisplay.textContent = name;
+    if(serviceDisplay) serviceDisplay.textContent = service;
 
     const btn = document.getElementById('finalStepBtn');
     const phone = "2348032677977";
     
+    // THE FINAL MESSAGE WITH PAYMENT QUESTION
     const rawMessage = `Hello TechUrban HQ! My name is ${name}. I just placed an order for *${service}*.
 
 📍 Delivery: ${delivery}
-🎁 Referral: ${referral}`;
+🎁 Referral: ${referral}
+
+What is the next step for payment?`;
 
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(rawMessage)}`;
 
-    btn.onclick = function(e) {
-        e.preventDefault(); 
-        window.open(waUrl, '_blank'); 
-        
-        // Final Cleanup
-        localStorage.clear();
-        window.location.href = "index.html"; 
-    };
+    if(btn) {
+        btn.onclick = function(e) {
+            e.preventDefault(); 
+            window.open(waUrl, '_blank'); 
+            localStorage.clear(); // Clean up memory
+            window.location.href = "index.html"; // Go home
+        };
+    }
 </script>    
 </body>
 </html>
+
 
 
 
