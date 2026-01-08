@@ -27,42 +27,42 @@
 </div>
 
 <script>
-    // 1. Pull data from LocalStorage
-    // We use the EXACT keys we saved in index.html
+    // 1. Pull data
     const name = localStorage.getItem('uName') || "Customer";
     const service = localStorage.getItem('uService') || "Academic Service";
-    const delivery = localStorage.getItem('uDelivery') || "Not Specified";
+    const delivery = localStorage.getItem('uDelivery') || "Office Pickup";
     const referral = localStorage.getItem('uReferral') || "None";
 
-    // 2. Display on UI (Optional: can also show delivery on the card)
+    // 2. Update UI
     document.getElementById('userName').innerText = name;
     document.getElementById('userService').innerText = service;
 
-    // 3. Setup the Button Action
+    // 3. WhatsApp Logic
     const btn = document.getElementById('finalStepBtn');
     const phone = "2348032677977";
     
-    // Create the WhatsApp link with Delivery included
-    const text = `Hello TechUrban HQ! My name is ${name}.%0AI just placed an order for *${service}*.%0A%0A📍 Delivery: ${delivery}%0A🎁 Referral: ${referral}%0A%0APlease let me know the next steps!`;
-    const waUrl = `https://wa.me/${phone}?text=${text}`;
+    // We encode the URI to prevent the message from cutting off
+    const rawMessage = `Hello TechUrban HQ! My name is ${name}. I just placed an order for *${service}*.
+
+📍 Delivery: ${delivery}
+🎁 Referral: ${referral}
+
+What is the next step for payment?`;
+
+    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(rawMessage)}`;
 
     btn.onclick = function(e) {
         e.preventDefault(); 
-
-        // ACTION A: Open WhatsApp in a NEW tab
-        window.open(waUrl, '_blank');
-
-        // ACTION B: Clear local storage so the next visit is "Fresh"
-        localStorage.clear();
-
-        // ACTION C: Redirect the CURRENT tab to Home with a unique ID for traffic stats
-        const uniqueVisitID = Math.floor(Math.random() * 10000);
+        window.open(waUrl, '_blank'); // Open WhatsApp in new tab
+        localStorage.clear(); // Clear data for fresh visit
+        
         setTimeout(() => {
-            window.location.href = `index.html?v=${uniqueVisitID}`; 
-        }, 500); 
+            window.location.href = "index.html?v=" + Math.random().toString(36).substring(7); 
+        }, 800); 
     };
 </script>
     
 </body>
 </html>
+
 
