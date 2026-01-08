@@ -27,16 +27,21 @@
 </div>
 
 <script>
+    // Grab data from storage
     const name = localStorage.getItem('uName') || "Customer";
     const service = localStorage.getItem('uService') || "Order";
     const delivery = localStorage.getItem('uDelivery') || "Pickup";
     const referral = localStorage.getItem('uReferral') || "None";
 
+    // DISPLAY the data on the page
+    document.getElementById('userName').textContent = name;
+    document.getElementById('userService').textContent = service;
+
     const btn = document.getElementById('finalStepBtn');
     const phone = "2348032677977";
     
     const rawMessage = `Hello TechUrban HQ! My name is ${name}. I just placed an order for *${service}*.
-    
+
 📍 Delivery: ${delivery}
 🎁 Referral: ${referral}`;
 
@@ -44,13 +49,16 @@
 
     btn.onclick = function(e) {
         e.preventDefault(); 
-        window.open(waUrl, '_blank'); // Opens WhatsApp
-        localStorage.clear(); // Cleans memory
-        window.location.href = "index.html"; // Returns home with NO unique ID
+        window.open(waUrl, '_blank'); 
+        
+        // Final Cleanup
+        localStorage.clear();
+        window.location.href = "index.html"; 
     };
 </script>    
 </body>
 </html>
+
 
 
 
