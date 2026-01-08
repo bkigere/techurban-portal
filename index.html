@@ -104,7 +104,7 @@
 
 <section id="order-section">
     <h2 style="text-align: center; color: #2c3e50;">Place an Order</h2>
-    <form id="techUrbanForm" action="https://formspree.io/f/mdakrvvv" method="POST">
+    <form id="techUrbanForm">
         <label>Full Name</label>
         <input type="text" name="name" id="studentName" required placeholder="Enter your name">
 
@@ -128,7 +128,7 @@
          
 <div style="margin-bottom: 20px; text-align: left;">
     <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #2c3e50;">Referral Code (Optional)</label>
-    <input type="text" name="referral_code" placeholder="e.g. TU-CHIDI-1234" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
+    <input type="text" name="referral_code" id="refCode" placeholder="e.g. TU-CHIDI-1234" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
     <small style="color: #7f8c8d;">Enter a friend's code to give them commission!</small>
 </div>
          <div style="margin: 15px 0;">
@@ -179,6 +179,8 @@
 <a href="https://wa.me/2348032677977" class="whatsapp-float" target="_blank">💬</a>
 
 <script>
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxsmpUkDnGBfStFYcf1Eucx81H-hsnqyoRaj7z4_Wm3dvFGfzQA9jlw64LjsWMGN8DC2w/exec";
+
     function openModal() { document.getElementById('termsModal').style.display = "block"; }
     function closeModal() { document.getElementById('termsModal').style.display = "none"; }
 
@@ -187,35 +189,38 @@
         document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    const form = document.getElementById('techUrbanForm');
-    form.addEventListener("submit", function(ev) {
-        ev.preventDefault();
+    const techForm = document.getElementById('techUrbanForm');
+    techForm.onsubmit = function(e) {
+        e.preventDefault();
+        
         const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerHTML = "Processing...";
+        submitBtn.innerHTML = "Logging Details...";
         submitBtn.disabled = true;
-// Inside your form submit event listener
-const referral = document.querySelector('input[name="referral_code"]').value;
-localStorage.setItem('uReferral', referral || "None");
-        // Save data for the success page to personalize WhatsApp
-        localStorage.setItem('uName', document.getElementById('studentName').value);
-        localStorage.setItem('uService', document.getElementById('serviceType').value);
 
-        const data = new FormData(form);
-        fetch(form.action, {
-            method: form.method,
-            body: data,
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                window.location.href = "success.html"; 
-            } else {
-                alert("Error sending order. Please try again.");
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "Confirm & Proceed";
-            }
-        });
-    });
+        // Capture data
+        const name = document.getElementById('studentName').value;
+        const service = document.getElementById('serviceType').value;
+        const delivery = document.getElementById('deliveryMethod').value;
+        const referral = document.getElementById('refCode').value || "None";
+
+        // Save for success page (This fixes your WhatsApp problem)
+        localStorage.setItem('uName', name);
+        localStorage.setItem('uService', service);
+        localStorage.setItem('uDelivery', delivery);
+        localStorage.setItem('uReferral', referral);
+
+        // Send to Google Sheets
+        fetch(scriptUrl, { method: 'POST', body: new FormData(techForm) })
+            .then(res => {
+                window.location.href = "success.html";
+            })
+            .catch(err => {
+                console.error('Automation error:', err);
+                window.location.href = "success.html"; // Fail-safe
+            });
+    };
 </script>
 </body>
 
 </html>
+
