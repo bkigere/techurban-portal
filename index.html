@@ -189,7 +189,11 @@
         document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    techForm.onsubmit = function(e) {
+    // THIS WAS MISSING:
+    const techForm = document.getElementById('techUrbanForm');
+
+    techForm.addEventListener('submit', function(e) {
+        // This stops the messy URL and page reload
         e.preventDefault();
         
         const submitBtn = document.getElementById('submitBtn');
@@ -202,18 +206,21 @@
         localStorage.setItem('uDelivery', document.getElementById('deliveryMethod').value); 
         localStorage.setItem('uReferral', document.getElementById('refCode').value || "None");
 
-        // 2. Fire the data to Google Sheets (don't wait for a response)
+        // 2. Fire the data to Google Sheets (High Speed Mode)
         fetch(scriptUrl, { method: 'POST', body: new FormData(techForm), mode: 'no-cors' });
 
-        // 3. Redirect IMMEDIATELY (Makes it feel 10x faster)
+        // 3. Redirect IMMEDIATELY
         setTimeout(() => {
             window.location.href = "success.html";
-        }, 100); 
-    };
+        }, 300); 
+
+        return false;
+    });
 </script>
 </body>
 
 </html>
+
 
 
 
